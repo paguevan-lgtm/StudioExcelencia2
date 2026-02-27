@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stúdio Excelência | Barbearia Premium</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vinho: '#74010e',
+                        dourado: '#D4AF37',
+                        dark: '#0a0a0a',
+                        surface: '#141414',
+                        texto: '#f8f8f2',
+                        mutado: '#a1a1aa',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'lux': '0 10px 40px -10px rgba(0,0,0,0.8)',
+                        'glow': '0 0 20px rgba(212, 175, 55, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for extra elegance */
+        body {
+            background-color: #0a0a0a;
+            color: #f8f8f2;
+            overflow-x: hidden; /* Previne scroll horizontal em qualquer tela */
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #fef08a 50%, #D4AF37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,1) 100%);
+        }
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626; 
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37; 
+        }
+    </style>
+</head>
+<body class="font-sans text-texto antialiased selection:bg-dourado selection:text-dark">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-dark/80 backdrop-blur-xl border-b border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="block">
+                        <!-- Logo na Navbar -->
+                        <img src="https://i.imgur.com/LxbDLLW.png" alt="Stúdio Excelência" class="h-12 w-auto object-contain">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#sobre" class="text-mutado hover:text-dourado transition-colors text-sm uppercase tracking-widest font-medium">Sobre</a>
+                    <a href="#servicos" class="text-mutado hover:text-dourado transition-colors text-sm uppercase tracking-widest font-medium">Serviços</a>
+                    <a href="#galeria" class="text-mutado hover:text-dourado transition-colors text-sm uppercase tracking-widest font-medium">Galeria</a>
+                    <a href="#depoimentos" class="text-mutado hover:text-dourado transition-colors text-sm uppercase tracking-widest font-medium">Depoimentos</a>
+                    
+                    <!-- Menção Grupo CBL Desktop -->
+                    <div class="border-l border-white/10 pl-6 flex flex-col items-start justify-center">
+                        <a href="#" target="_blank" class="text-texto hover:text-dourado transition-colors text-sm font-bold uppercase tracking-wider leading-none">Grupo CBL</a>
+                        <span class="text-[10px] text-dourado/70 uppercase tracking-widest mt-1">Inovação e Tech</span>
+                    </div>
+
+                    <a href="#contato" class="bg-dourado hover:bg-white text-dark px-6 py-2 rounded-full font-bold transition-all shadow-glow text-sm uppercase tracking-wider ml-2">Agendar</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-texto hover:text-dourado focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-surface border-t border-white/5 absolute w-full shadow-2xl">
+            <div class="px-4 pt-2 pb-6 space-y-1 flex flex-col">
+                <a href="#sobre" class="text-texto hover:text-dourado block px-3 py-3 text-base font-medium border-b border-white/5">Sobre Nós</a>
+                <a href="#servicos" class="text-texto hover:text-dourado block px-3 py-3 text-base font-medium border-b border-white/5">Serviços</a>
+                <a href="#galeria" class="text-texto hover:text-dourado block px-3 py-3 text-base font-medium border-b border-white/5">Galeria</a>
+                <a href="#contato" class="text-texto hover:text-dourado block px-3 py-3 text-base font-medium mb-4">Contato</a>
+                <a href="#hero-agendamento" class="bg-dourado text-dark block text-center px-3 py-3 rounded-full font-bold shadow-glow mb-4">Agendar Agora</a>
+                
+                <!-- Menção Grupo CBL Mobile -->
+                <div class="px-3 py-4 bg-dark/50 rounded-xl border border-white/5 flex flex-col items-center justify-center text-center mt-2">
+                    <a href="#" target="_blank" class="text-texto hover:text-dourado text-sm font-bold uppercase tracking-wider block leading-none">Grupo CBL</a>
+                    <span class="text-[10px] text-dourado/70 uppercase tracking-widest mt-1.5 block">Inovação e Tech</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Focado 100% em Leads e Mobile First -->
+    <section class="relative min-h-[100svh] flex items-center bg-dark overflow-hidden pt-24 pb-12">
+        <!-- Background Imersivo -->
+        <div class="absolute inset-0 w-full h-full z-0">
+            <img src="https://ferrante.com.br/wp-content/uploads/2025/07/cadeira-barbeiro-dia-do-homem-ferrante-2.jpg" alt="Interior Barbearia" class="w-full h-full object-cover opacity-40 mix-blend-luminosity">
+            <!-- Gradientes para garantir leitura perfeita -->
+            <div class="absolute inset-0 bg-gradient-to-r from-dark via-dark/80 to-dark/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center mt-8">
+            
+            <!-- Esquerda: Proposta de Valor e Autoridade -->
+            <div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+                
+                <!-- Selo de Autoridade -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-dourado/30 bg-dourado/10 backdrop-blur-md mb-6 shadow-glow animate-fade-in-up">
+                    <i class="ph-fill ph-star text-dourado text-sm"></i>
+                    <span class="text-dourado text-[10px] sm:text-xs font-bold uppercase tracking-widest">A Melhor Barbearia de São Vicente</span>
+                </div>
+                
+                <!-- Logo Grande -->
+                <img src="https://i.imgur.com/ueskLpW.png" alt="Stúdio Excelência Barbearia" class="w-64 sm:w-80 lg:w-[420px] mb-6 object-contain drop-shadow-[0_0_30px_rgba(212,175,55,0.2)]">
+                <h1 class="sr-only">Stúdio Excelência</h1>
+                
+                <!-- Texto Persuasivo -->
+                <p class="text-texto/90 text-base sm:text-lg mb-8 max-w-lg font-light leading-relaxed">
+                    Mais do que um simples corte, uma <strong class="text-dourado font-medium">experiência premium</strong>. Eleve seu visual e sua confiança com nossos mestres especialistas.
+                </p>
+
+                <!-- Prova Social Integrada (Mobile otimizado) -->
+                <div class="flex items-center gap-4 bg-surface/60 backdrop-blur-md px-5 sm:px-6 py-3 sm:py-4 rounded-2xl border border-white/10 shadow-xl w-full sm:w-auto justify-center sm:justify-start">
+                    <div class="flex -space-x-3 shrink-0">
+                        <img class="w-10 h-10 rounded-full border-2 border-surface object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&w=100&q=80" alt="Cliente">
+                        <img class="w-10 h-10 rounded-full border-2 border-surface object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=100&q=80" alt="Cliente">
+                        <img class="w-10 h-10 rounded-full border-2 border-surface object-cover" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&w=100&q=80" alt="Cliente">
+                    </div>
+                    <div class="text-left">
+                        <div class="flex text-dourado text-xs sm:text-sm mb-0.5">
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                        </div>
+                        <p class="text-[10px] sm:text-xs text-mutado font-medium uppercase tracking-wider">+5.000 Homens Satisfeitos</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direita: Máquina de Leads (Formulário Rápido de Agendamento) -->
+            <div class="w-full max-w-md mx-auto lg:ml-auto relative" id="hero-agendamento">
+                <!-- Brilho no fundo do form -->
+                <div class="absolute inset-0 bg-dourado/10 blur-[50px] rounded-full z-0"></div>
+                
+                <div class="relative z-10 bg-surface/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl border border-dourado/20 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    
+                    <div class="text-center mb-6">
+                        <div class="w-12 h-12 bg-vinho rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg border border-white/5">
+                            <i class="ph-light ph-calendar-check text-2xl text-dourado"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl text-texto mb-1">Agendamento Rápido</h3>
+                        <p class="text-xs text-mutado">Garanta seu horário em menos de 1 minuto.</p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <input type="text" id="hero-nome" placeholder="Como podemos te chamar?" class="w-full bg-dark/70 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-texto focus:border-dourado focus:ring-1 focus:ring-dourado outline-none transition-all placeholder-white/30">
+                        </div>
+                        <div>
+                            <select id="hero-servico" class="w-full bg-dark/70 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white/70 focus:text-texto focus:border-dourado focus:ring-1 focus:ring-dourado outline-none transition-all appearance-none">
+                                <option value="">Qual serviço você procura?</option>
+                                <option value="Corte Moderno ou Clássico">Corte Masculino</option>
+                                <option value="Barba Premium (Toalha Quente)">Barba Premium</option>
+                                <option value="Combo: Corte + Barba">Combo: Corte + Barba</option>
+                                <option value="Tranças Nagô/Box Braids">Tranças Afros</option>
+                                <option value="Pacote Dia do Noivo">Dia do Noivo</option>
+                            </select>
+                        </div>
+                        <button onclick="enviarWhatsAppHero()" class="w-full py-4 mt-2 bg-gradient-to-r from-dourado to-[#b89523] hover:from-white hover:to-white text-dark font-bold uppercase tracking-widest text-sm rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-glow transform hover:scale-[1.02]">
+                            <i class="ph-bold ph-whatsapp text-xl"></i> Agendar via WhatsApp
+                        </button>
+                    </div>
+                    <p class="text-center text-[10px] text-mutado mt-4 font-light">
+                        <i class="ph-fill ph-lock-key inline-block mr-1"></i> Seus dados estão seguros e não enviamos spam.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sobre Nós Section -->
+    <section id="sobre" class="py-24 bg-dark relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Image -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-vinho/20 transform translate-x-4 translate-y-4 rounded-[2rem] transition-transform group-hover:translate-x-2 group-hover:translate-y-2 duration-500 blur-sm"></div>
+                    <!-- Imagem atualizada e com aspect-ratio premium para Mobile -->
+                    <img src="https://scontent-gru1-1.cdninstagram.com/v/t51.75761-15/491446456_17867195985363244_6601076293382680120_n.jpg?stp=dst-jpg_e35_p720x720_tt6&_nc_cat=101&_nc_cb=04374bf5-9763b1f0&ig_cache_key=MzYxOTU2Njk5ODYwNzQ4MDE2Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuQzMifQ%3D%3D&_nc_ohc=knO8u7ZybBgQ7kNvwGF0QeP&_nc_oc=Adk1BtGM-o3bevLk36_MSgCq1WmOBsbwpXEKqbV83abmRiy2oB_K8fMZ0kQs5SgD31C7gPXGZtr4oCtlq8IDSZzk&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-gru1-1.cdninstagram.com&_nc_gid=7bF7nIE2USpK1H8wTuxO2g&oh=00_AfudSdzxGCS_3uKlfOv2ZIYi82IwPX9ro17y2Vf4NAnSGg&oe=69A3C3B3" alt="Interior da Barbearia" class="relative z-10 w-full h-auto object-cover rounded-[2rem] shadow-lux grayscale-[15%] group-hover:grayscale-0 border border-white/5 transition-all duration-500 aspect-[4/5] md:aspect-[3/4]" />
+                </div>
+                
+                <!-- Text -->
+                <div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="h-[1px] w-12 bg-dourado"></div>
+                        <span class="text-dourado font-semibold uppercase tracking-widest text-sm">A Nossa História</span>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-texto mb-8 leading-tight">
+                        A arte do cuidado <br>masculino em <span class="text-gradient">São Vicente</span>
+                    </h2>
+                    <p class="text-mutado text-lg mb-6 leading-relaxed">
+                        O <strong class="text-texto">Stúdio Excelência</strong> nasceu com um propósito claro: resgatar a essência da barbearia clássica e elevá-la ao padrão do homem moderno. Não somos apenas um local para cortar o cabelo; somos um refúgio de sofisticação e bem-estar.
+                    </p>
+                    <p class="text-mutado text-lg mb-8 leading-relaxed">
+                        Combinamos a <span class="text-texto font-medium">tradição</span> do ofício com a <span class="text-texto font-medium">modernidade</span> das novas tendências. Nosso ambiente foi meticulosamente desenhado para transmitir conforto e exclusividade, oferecendo um atendimento personalizado que entende e valoriza a sua identidade.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mt-10">
+                        <div class="flex flex-col bg-surface p-5 rounded-2xl border border-white/5">
+                            <i class="ph-light ph-scissors text-4xl text-dourado mb-3"></i>
+                            <h4 class="font-serif font-bold text-texto text-lg">Mestres Barbeiros</h4>
+                            <p class="text-sm text-mutado mt-1">Profissionais altamente qualificados.</p>
+                        </div>
+                        <div class="flex flex-col bg-surface p-5 rounded-2xl border border-white/5">
+                            <i class="ph-light ph-brandy text-4xl text-dourado mb-3"></i>
+                            <h4 class="font-serif font-bold text-texto text-lg">Ambiente Premium</h4>
+                            <p class="text-sm text-mutado mt-1">Conforto, luxo e exclusividade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="py-24 bg-surface relative border-t border-b border-white/5">
+        <!-- Texture overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'#D4AF37\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-dourado font-semibold uppercase tracking-widest text-sm block mb-4">A excelência em detalhes</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-texto mb-6">Nossos Serviços</h2>
+                <div class="w-24 h-1 bg-dourado mx-auto rounded-full opacity-50"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-dark p-8 border border-white/5 rounded-3xl card-hover relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-dourado rounded-bl-full -z-10 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-surface border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="ph-light ph-scissors text-2xl text-dourado"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-texto mb-3">Corte Masculino</h3>
+                    <p class="text-mutado text-sm leading-relaxed mb-6">Técnicas refinadas em cortes clássicos e modernos. Visagismo aplicado para um visual impecável, alinhado ao seu perfil e estilo de vida.</p>
+                    <a href="#contato" class="inline-flex items-center text-dourado text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">
+                        Agendar <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-dark p-8 border border-white/5 rounded-3xl card-hover relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-dourado rounded-bl-full -z-10 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-surface border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="ph-light ph-drop text-2xl text-dourado"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-texto mb-3">Barba Premium</h3>
+                    <p class="text-mutado text-sm leading-relaxed mb-6">O verdadeiro ritual clássico: toalha quente, navalha precisa, massagem facial e hidratação com produtos de altíssima performance.</p>
+                    <a href="#contato" class="inline-flex items-center text-dourado text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">
+                        Agendar <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-dark p-8 border border-white/5 rounded-3xl card-hover relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-dourado rounded-bl-full -z-10 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-surface border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="ph-light ph-bezier-curve text-2xl text-dourado"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-texto mb-3">Tranças</h3>
+                    <p class="text-mutado text-sm leading-relaxed mb-6">Estilos exclusivos, nagô, box braids e designs modernos feitos por profissionais especializados na arte da trança afro e contemporânea.</p>
+                    <a href="#contato" class="inline-flex items-center text-dourado text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">
+                        Agendar <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-dark p-8 border border-white/5 rounded-3xl card-hover relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-dourado rounded-bl-full -z-10 opacity-5 group-hover:opacity-10 transition-opacity"></div>
+                    <div class="w-14 h-14 bg-surface border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                        <i class="ph-light ph-star text-2xl text-dourado"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-texto mb-3">Acabamentos</h3>
+                    <p class="text-mutado text-sm leading-relaxed mb-6">A diferença está nos detalhes. Alinhamento de perfil (pezinho), design de sobrancelha na navalha, platinado e limpeza facial.</p>
+                    <a href="#contato" class="inline-flex items-center text-dourado text-sm font-bold uppercase tracking-wider group-hover:text-white transition-colors">
+                        Agendar <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="bg-gradient-to-br from-dark to-surface p-8 border border-dourado/20 rounded-3xl card-hover relative overflow-hidden group md:col-span-2 lg:col-span-2 shadow-glow">
+                    <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+                        <div class="w-20 h-20 shrink-0 bg-dark border border-dourado rounded-full flex items-center justify-center shadow-lg">
+                            <i class="ph-light ph-crown text-4xl text-dourado"></i>
+                        </div>
+                        <div>
+                            <div class="inline-block px-4 py-1.5 bg-dourado/10 border border-dourado/30 text-dourado text-xs font-bold uppercase tracking-widest rounded-full mb-4">Exclusivo</div>
+                            <h3 class="font-serif text-3xl text-texto mb-3">Pacotes Especiais & Dia do Noivo</h3>
+                            <p class="text-mutado text-sm leading-relaxed mb-6 max-w-2xl">Combos perfeitos para quem exige o melhor em ocasiões inesquecíveis. Preparação completa com corte, barba, hidratação, massagem e um brinde especial para celebrar o seu momento com sofisticação.</p>
+                            <a href="https://wa.me/5513996731615?text=Olá, gostaria de saber mais sobre os Pacotes Especiais!" target="_blank" class="inline-flex items-center px-8 py-3 bg-dourado text-dark hover:bg-white font-bold uppercase tracking-wider transition-all rounded-full shadow-lg">
+                                Consultar Pacotes <i class="ph-bold ph-whatsapp ml-2 text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diferenciais -->
+    <section class="py-20 bg-dark border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 text-center">
+                <div class="flex flex-col items-center p-6 rounded-2xl hover:bg-surface transition-colors border border-transparent hover:border-white/5">
+                    <div class="w-20 h-20 rounded-full bg-surface shadow-lux flex items-center justify-center mb-6 border border-white/10 text-dourado">
+                        <i class="ph-light ph-medal text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl text-texto font-bold mb-2">Atendimento de Excelência</h4>
+                    <p class="text-sm text-mutado">Foco total na sua satisfação e em uma experiência única.</p>
+                </div>
+                
+                <div class="flex flex-col items-center p-6 rounded-2xl hover:bg-surface transition-colors border border-transparent hover:border-white/5">
+                    <div class="w-20 h-20 rounded-full bg-surface shadow-lux flex items-center justify-center mb-6 border border-white/10 text-dourado">
+                        <i class="ph-light ph-users-three text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl text-texto font-bold mb-2">Profissionais Qualificados</h4>
+                    <p class="text-sm text-mutado">Equipe em constante atualização com as melhores técnicas.</p>
+                </div>
+
+                <div class="flex flex-col items-center p-6 rounded-2xl hover:bg-surface transition-colors border border-transparent hover:border-white/5">
+                    <div class="w-20 h-20 rounded-full bg-surface shadow-lux flex items-center justify-center mb-6 border border-white/10 text-dourado">
+                        <i class="ph-light ph-armchair text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl text-texto font-bold mb-2">Ambiente Confortável</h4>
+                    <p class="text-sm text-mutado">Climatizado, moderno e preparado para o seu relaxamento.</p>
+                </div>
+
+                <div class="flex flex-col items-center p-6 rounded-2xl hover:bg-surface transition-colors border border-transparent hover:border-white/5">
+                    <div class="w-20 h-20 rounded-full bg-surface shadow-lux flex items-center justify-center mb-6 border border-white/10 text-dourado">
+                        <i class="ph-light ph-sparkle text-4xl"></i>
+                    </div>
+                    <h4 class="font-serif text-xl text-texto font-bold mb-2">Produtos Premium</h4>
+                    <p class="text-sm text-mutado">Utilizamos apenas linhas profissionais de alta qualidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria Section -->
+    <section id="galeria" class="py-24 bg-dark relative">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-vinho/50 to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-vinho font-semibold uppercase tracking-widest text-sm block mb-4">Nosso Espaço e Arte</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-texto">Galeria do Instagram</h2>
+                </div>
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="hidden md:inline-flex items-center text-texto hover:text-white bg-vinho/20 hover:bg-vinho font-bold tracking-wider uppercase text-sm transition-colors mt-6 md:mt-0 px-6 py-2 border border-vinho/50 rounded-full">
+                    @studioexcelencia.barbearia <i class="ph-bold ph-instagram-logo ml-2 text-xl"></i>
+                </a>
+            </div>
+
+            <!-- CSS Grid Gallery - Estilo Feed Instagram -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
+                
+                <!-- Foto 1 -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru2-2.cdninstagram.com/v/t51.82787-15/623090706_17951594409079425_7174111831441573579_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=105&_nc_cb=04374bf5-9763b1f0&ig_cache_key=MzgyMDIwMDM5ODYzNjUxODM3OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxMC5oZHIuQzMifQ%3D%3D&_nc_ohc=BP7wWB5ZSAcQ7kNvwHV8iv1&_nc_oc=Adnq3M2_aqjjw3OhZPEt2qtygln5e8ZblprtZuJ9PEWLn8QbnLxqfbE4Y3knt_1EYh2hBIT6u9X2IFOn09uVtgAu&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-gru2-2.cdninstagram.com&_nc_gid=ItpsAJa74ikdimmJ14ftxA&oh=00_AfuKRggVMWLBR0f2DrtFyYU6b4un4VbUYWJYboFDM4Cvhw&oe=69A3DC0F" alt="Corte no Stúdio Excelência" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+                
+                <!-- Foto 2 -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru2-1.cdninstagram.com/v/t51.82787-15/603511548_17947183680079425_2196314946335320914_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=107&_nc_cb=04374bf5-9763b1f0&ig_cache_key=Mzc5MTE3MDc3NjIxMzg2MjYzMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkyMC5oZHIuQzMifQ%3D%3D&_nc_ohc=FKiXWAezeWMQ7kNvwH_WyDI&_nc_oc=AdnjbNZyJZPjGM7dbgrsHjQwotcjpYUhXFsDQ3mrj7QR4e4J38f5z_KkYLd6XUgZ975aw9j6Od-HdzOkyu21VlWW&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-gru2-1.cdninstagram.com&_nc_gid=ItpsAJa74ikdimmJ14ftxA&oh=00_Afs4LI-TWoiu8EMT8FnAEjPVaX5wKWc3TL0uUnkxBnPcsQ&oe=69A3F663" alt="Detalhe do Corte" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+                
+                <!-- Foto 3 -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru1-2.cdninstagram.com/v/t51.82787-15/588670860_17946579285079425_3492243216552143438_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=103&_nc_cb=04374bf5-9763b1f0&ig_cache_key=Mzc4NzAzODAwMjY5NDk1MjA3MQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxMC5oZHIuQzMifQ%3D%3D&_nc_ohc=J0BTgp8LYeYQ7kNvwG9VrdO&_nc_oc=Admk9udNQzdYUNTFMcW29AiVyCxxFk0ZvnDXjmlDfhAwFh6mshHZKXRpLCRoq48n_cyKmB2yhpbY9_dM9gq_AR7L&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-gru1-2.cdninstagram.com&_nc_gid=Zk4vJWwxeG1GjOEibFBSbg&oh=00_AfuDTXYzCLZFG9GbEzpiL-hyBEOVSlHvzah7niApRQVuDQ&oe=69A3C408" alt="Máquina de Corte" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+                
+                <!-- Foto 4 -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru1-2.cdninstagram.com/v/t51.82787-15/569177232_17941085982079425_7315217927119745947_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=108&_nc_cb=04374bf5-9763b1f0&ig_cache_key=Mzc0ODMzNzc0NDA3MTQ0MzQ1OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxMC5oZHIuQzMifQ%3D%3D&_nc_ohc=-kIFMS3B5_IQ7kNvwEVXowS&_nc_oc=AdkYM5ykIB4Pa9iK82JMvsuxvPFOqkk6folqQP8AcON0h4JiSpI9f5pOUBlpw8cc4jKGkNkN4VnxFasTVLF4qPvA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-gru1-2.cdninstagram.com&_nc_gid=afaBx7EJ_M-z-K_LSlDtNw&oh=00_AfvCoQYx5HF2fH8MYOTXYXtF_YCjW49-roCRoius1FeUGw&oe=69A3D4AB" alt="Estilo e Barba" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+
+                <!-- Foto 5 -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru1-1.cdninstagram.com/v/t51.75761-15/491438710_18493134262001272_2211347886869644551_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&_nc_cb=04374bf5-9763b1f0&ig_cache_key=MzYxMTM3MzAyNjEwMjY5MTAwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=EK0PTXKe0W4Q7kNvwGRU12Z&_nc_oc=AdlzkzOzw1UXJMAWWcjB5b-UjUy41FLA379cUNTO0kxHQDNjFKGAKGF2VzcsIHM3rh0bdqG9XGckBvLdssP-EGWM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent-gru1-1.cdninstagram.com&_nc_gid=fNZDDGkWHV3qsnunhXt6TQ&oh=00_AfvC09QksvSp3x3IolXvJ4xuAoT51nLH-vgsQPXNeg3FkQ&oe=69A3C4B8" alt="Ambiente Stúdio Excelência" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+
+                <!-- Foto 6 (Reutilizando a 1 para manter os 6 espaços no grid) -->
+                <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="relative group overflow-hidden rounded-xl border border-white/5 aspect-square block">
+                    <img src="https://scontent-gru2-2.cdninstagram.com/v/t51.82787-15/623090706_17951594409079425_7174111831441573579_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=105&_nc_cb=04374bf5-9763b1f0&ig_cache_key=MzgyMDIwMDM5ODYzNjUxODM3OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxMC5oZHIuQzMifQ%3D%3D&_nc_ohc=BP7wWB5ZSAcQ7kNvwHV8iv1&_nc_oc=Adnq3M2_aqjjw3OhZPEt2qtygln5e8ZblprtZuJ9PEWLn8QbnLxqfbE4Y3knt_1EYh2hBIT6u9X2IFOn09uVtgAu&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&se=-1&_nc_ht=scontent-gru2-2.cdninstagram.com&_nc_gid=ItpsAJa74ikdimmJ14ftxA&oh=00_AfuKRggVMWLBR0f2DrtFyYU6b4un4VbUYWJYboFDM4Cvhw&oe=69A3DC0F" alt="Tranças e Estilo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-vinho/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                        <i class="ph-fill ph-instagram-logo text-texto text-4xl drop-shadow-glow"></i>
+                    </div>
+                </a>
+
+            </div>
+            
+            <div class="mt-8 text-center md:hidden">
+                 <a href="https://www.instagram.com/studioexcelencia.barbearia" target="_blank" class="inline-flex items-center text-texto font-bold tracking-wider uppercase text-sm border border-vinho bg-vinho/10 px-8 py-4 rounded-full">
+                    Ver no Instagram <i class="ph-bold ph-instagram-logo ml-2 text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos Section -->
+    <section id="depoimentos" class="py-24 bg-surface relative overflow-hidden border-t border-b border-white/5">
+        <!-- Decoration -->
+        <i class="ph-fill ph-quotes absolute -top-10 -left-10 text-[200px] text-white/5 z-0"></i>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-dourado font-semibold uppercase tracking-widest text-sm block mb-4">A voz da nossa clientela</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-texto mb-6">Reconhecimento</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="bg-dark p-10 rounded-3xl shadow-lux border border-white/5 relative">
+                    <div class="flex text-dourado text-lg mb-6 gap-1">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-mutado text-base italic mb-8 leading-relaxed">"Ambiente sensacional e profissionais de altíssimo nível. Desde a recepção até o acabamento final do corte, o atendimento é impecável. Recomendo de olhos fechados para quem busca qualidade de verdade em São Vicente."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div class="w-12 h-12 bg-surface border border-white/10 rounded-full flex items-center justify-center text-texto font-serif font-bold text-xl">C</div>
+                        <div>
+                            <h5 class="font-bold text-texto">Carlos M.</h5>
+                            <span class="text-xs text-mutado uppercase tracking-widest">Cliente Mensal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 2 -->
+                <div class="bg-dark p-10 rounded-3xl shadow-lux border border-dourado/30 relative transform md:-translate-y-4 shadow-glow">
+                    <div class="flex text-dourado text-lg mb-6 gap-1">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-texto text-base italic mb-8 leading-relaxed">"Primeira vez que encontro um lugar que acerta exatamente no que eu peço. A barba ficou na régua, hidratação top, e a resenha no local é muito boa. A decoração luxuosa te faz sentir VIP."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div class="w-12 h-12 bg-dourado text-dark rounded-full flex items-center justify-center font-serif font-bold text-xl shadow-lg">R</div>
+                        <div>
+                            <h5 class="font-bold text-texto">Rafael T.</h5>
+                            <span class="text-xs text-dourado uppercase tracking-widest">Cliente Fiel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Depoimento 3 -->
+                <div class="bg-dark p-10 rounded-3xl shadow-lux border border-white/5 relative">
+                    <div class="flex text-dourado text-lg mb-6 gap-1">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-mutado text-base italic mb-8 leading-relaxed">"Lugar de respeito. Fiz minhas tranças no Stúdio Excelência e o resultado foi além das expectativas. Muito capricho, não machuca, e o ambiente com cerveja gelada ganha muitos pontos."</p>
+                    <div class="flex items-center gap-4 border-t border-white/10 pt-6">
+                        <div class="w-12 h-12 bg-surface border border-white/10 rounded-full flex items-center justify-center text-texto font-serif font-bold text-xl">J</div>
+                        <div>
+                            <h5 class="font-bold text-texto">João P.</h5>
+                            <span class="text-xs text-mutado uppercase tracking-widest">Serviço: Trança</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Localização & Contato Section -->
+    <section id="contato" class="py-24 bg-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Informações e Mapa -->
+                <div>
+                    <span class="text-dourado font-semibold uppercase tracking-widest text-sm block mb-4">Visite-nos</span>
+                    <h2 class="font-serif text-4xl text-texto mb-8">Nossa Localização</h2>
+                    
+                    <div class="bg-surface p-6 rounded-2xl mb-8 flex items-start gap-4 border border-white/5">
+                        <div class="p-3 bg-dark rounded-xl border border-white/5">
+                            <i class="ph-fill ph-map-pin text-2xl text-dourado"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-texto text-lg mb-1">Endereço</h4>
+                            <p class="text-mutado leading-relaxed">R. Ariovaldo de Oliveira Rosa<br>Conjunto Residencial Humaitá<br>São Vicente - SP, 11349-260</p>
+                            <a href="https://maps.google.com/?q=R.+Ariovaldo+de+Oliveira+Rosa+-+Conjunto+Residencial+Humaitá,+São+Vicente+-+SP,+11349-260" target="_blank" class="inline-block mt-4 text-dourado font-bold text-sm uppercase tracking-wider hover:text-white transition-colors">
+                                Abrir no Google Maps &rarr;
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-surface border border-white/5 p-6 rounded-2xl">
+                            <i class="ph-light ph-clock text-3xl text-dourado mb-4 block"></i>
+                            <h4 class="font-bold text-texto mb-3">Horários</h4>
+                            <ul class="text-sm text-mutado space-y-2">
+                                <li class="flex justify-between border-b border-white/5 pb-1"><span>Segunda:</span> <span class="font-medium text-texto">12:00 - 20:00</span></li>
+                                <li class="flex justify-between border-b border-white/5 pb-1 text-dourado font-medium"><span>Ter - Sáb:</span> <span>09:00 - 21:00</span></li>
+                                <li class="flex justify-between"><span>Domingo:</span> <span class="font-medium text-texto">10:00 - 14:00</span></li>
+                            </ul>
+                        </div>
+                        <div class="bg-surface border border-white/5 p-6 rounded-2xl flex flex-col justify-center">
+                            <i class="ph-light ph-phone text-3xl text-dourado mb-4 block"></i>
+                            <h4 class="font-bold text-texto mb-2">Contato Direto</h4>
+                            <a href="tel:+5513996731615" class="text-mutado hover:text-dourado transition-colors text-xl mb-4 block font-light">
+                                (13) 99673-1615
+                            </a>
+                            <a href="https://wa.me/5513996731615" target="_blank" class="inline-flex items-center justify-center w-full py-3 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold rounded-full transition-colors text-sm uppercase tracking-wide shadow-lg">
+                                <i class="ph-bold ph-whatsapp text-xl mr-2"></i> WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário -->
+                <div class="bg-surface p-8 md:p-12 rounded-3xl shadow-lux border border-white/5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-dourado rounded-bl-full -z-0 opacity-5 blur-3xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="font-serif text-3xl text-texto mb-2">Agende seu horário</h3>
+                        <p class="text-mutado text-sm mb-8">Preencha os dados abaixo e entraremos em contato para confirmar sua reserva.</p>
+                        
+                        <form action="#" method="POST" class="space-y-6">
+                            <div>
+                                <label for="nome" class="block text-mutado text-xs uppercase tracking-wider mb-2">Nome Completo</label>
+                                <input type="text" id="nome" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-texto focus:outline-none focus:border-dourado focus:ring-1 focus:ring-dourado transition-all placeholder-white/20" placeholder="Seu nome">
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label for="telefone" class="block text-mutado text-xs uppercase tracking-wider mb-2">Telefone / WhatsApp</label>
+                                    <input type="tel" id="telefone" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-texto focus:outline-none focus:border-dourado focus:ring-1 focus:ring-dourado transition-all placeholder-white/20" placeholder="(13) 90000-0000">
+                                </div>
+                                <div>
+                                    <label for="servico" class="block text-mutado text-xs uppercase tracking-wider mb-2">Serviço Desejado</label>
+                                    <select id="servico" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-texto focus:outline-none focus:border-dourado focus:ring-1 focus:ring-dourado transition-all appearance-none">
+                                        <option value="" class="text-mutado">Selecione...</option>
+                                        <option value="corte">Corte Masculino</option>
+                                        <option value="barba">Barba Premium</option>
+                                        <option value="tranca">Tranças</option>
+                                        <option value="combo">Combo (Corte + Barba)</option>
+                                        <option value="pacote">Pacote / Dia do Noivo</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="mensagem" class="block text-mutado text-xs uppercase tracking-wider mb-2">Mensagem (Opcional)</label>
+                                <textarea id="mensagem" rows="3" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-texto focus:outline-none focus:border-dourado focus:ring-1 focus:ring-dourado transition-all placeholder-white/20 resize-none" placeholder="Pretende agendar para qual dia?"></textarea>
+                            </div>
+
+                            <button type="button" onclick="enviarWhatsApp()" class="w-full py-4 bg-vinho hover:bg-white text-texto hover:text-dark font-bold uppercase tracking-wider rounded-xl transition-all duration-300 mt-2 shadow-[0_0_15px_rgba(116,1,14,0.5)]">
+                                Solicitar Agendamento
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mapa Integrado -->
+            <div class="mt-16 w-full h-[400px] bg-surface rounded-3xl overflow-hidden border border-white/5 shadow-lux p-2">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3646.618649479633!2d-46.417277!3d-23.9739542!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce1c412dc0a6e3%3A0x6a0c443425eb39f2!2sR.%20Ariovaldo%20de%20Oliveira%20Rosa%20-%20Conjunto%20Residencial%20Humait%C3%A1%2C%20S%C3%A3o%20Vicente%20-%20SP%2C%2011349-260!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; border-radius: 1.5rem;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-surface pt-16 pb-8 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center text-center md:text-left mb-12">
+                
+                <!-- Logo & Slogan -->
+                <div class="flex flex-col items-center md:items-start">
+                    <!-- Logo no Rodapé -->
+                    <a href="#" class="block mb-6">
+                        <img src="https://i.imgur.com/LxbDLLW.png" alt="Stúdio Excelência" class="h-16 w-auto object-contain drop-shadow-lg">
+                    </a>
+                    <p class="text-mutado text-sm font-serif italic mb-6">
+                        "Tradição, modernidade e qualidade"
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-12 h-12 rounded-full bg-dark border border-white/10 flex items-center justify-center text-mutado hover:bg-dourado hover:text-dark hover:border-dourado transition-all shadow-lg">
+                            <i class="ph-fill ph-instagram-logo text-xl"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-dark border border-white/10 flex items-center justify-center text-mutado hover:bg-dourado hover:text-dark hover:border-dourado transition-all shadow-lg">
+                            <i class="ph-fill ph-facebook-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Endereço -->
+                <div class="flex flex-col items-center md:items-start text-mutado text-sm leading-relaxed">
+                    <h5 class="text-texto font-bold uppercase tracking-widest mb-4 text-xs">Onde Estamos</h5>
+                    <p>R. Ariovaldo de Oliveira Rosa</p>
+                    <p>Conjunto Residencial Humaitá</p>
+                    <p>São Vicente - SP, 11349-260</p>
+                </div>
+
+                <!-- Contato Rápido -->
+                <div class="flex flex-col items-center md:items-end text-mutado text-sm">
+                    <h5 class="text-texto font-bold uppercase tracking-widest mb-4 text-xs">Fale Conosco</h5>
+                    <p class="mb-2 text-xl text-dourado font-medium">(13) 99673-1615</p>
+                    <a href="https://wa.me/5513996731615" target="_blank" class="inline-flex items-center text-texto hover:text-dourado font-bold uppercase tracking-wider transition-colors text-xs mt-2">
+                        Chamar no WhatsApp <i class="ph-bold ph-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-mutado">
+                <p>&copy; 2026 Stúdio Excelência. Todos os direitos reservados.</p>
+                
+                <!-- Menção Grupo CBL Footer -->
+                <div class="mt-6 md:mt-0 flex flex-col items-center md:items-end">
+                    <a href="#" target="_blank" class="text-texto hover:text-dourado transition-colors text-sm font-bold uppercase tracking-wider leading-none">Grupo CBL</a>
+                    <span class="text-[10px] text-dourado/70 uppercase tracking-widest mt-1">Inovação e Tech</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Previne qualquer scroll horizontal globalmente
+        document.body.style.overflowX = 'hidden';
+
+        // Toggle Mobile Menu
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on click link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // Função para o Formulário Rápido do Hero
+        function enviarWhatsAppHero() {
+            const nome = document.getElementById('hero-nome').value;
+            const servico = document.getElementById('hero-servico').value;
+
+            if(!nome) {
+                alert("Por favor, digite seu nome para iniciar o agendamento.");
+                return;
+            }
+
+            let texto = `Olá! Meu nome é *${nome}*.\n`;
+            if(servico) texto += `Tenho interesse no serviço de: *${servico}* e gostaria de agendar um horário.\n`;
+            else texto += `Gostaria de agendar um horário.\n`;
+
+            const textoCodificado = encodeURIComponent(texto);
+            const url = `https://wa.me/5513996731615?text=${textoCodificado}`;
+            
+            window.open(url, '_blank');
+        }
+
+        // Função para o Formulário Completo do Footer
+        function enviarWhatsApp() {
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const servico = document.getElementById('servico').value;
+            const mensagem = document.getElementById('mensagem').value;
+
+            if(!nome) {
+                alert("Por favor, preencha pelo menos o seu nome.");
+                return;
+            }
+
+            let texto = `Olá! Meu nome é *${nome}*.\n`;
+            if(telefone) texto += `Meu telefone: ${telefone}\n`;
+            if(servico) texto += `Tenho interesse no serviço: *${document.getElementById('servico').options[document.getElementById('servico').selectedIndex].text}*\n`;
+            if(mensagem) texto += `\nMensagem: ${mensagem}`;
+
+            const textoCodificado = encodeURIComponent(texto);
+            const url = `https://wa.me/5513996731615?text=${textoCodificado}`;
+            
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
